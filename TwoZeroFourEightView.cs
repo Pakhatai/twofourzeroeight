@@ -28,6 +28,12 @@ namespace twozerofoureight
         public void Notify(Model m)
         {
             UpdateBoard(((TwoZeroFourEightModel)m).GetBoard());
+            ScoreBox.Text = "SCORE : "+((TwoZeroFourEightModel)m).GetScore();
+            if (((TwoZeroFourEightModel)m).Check()) 
+            {
+                Gameover.Visible = true;
+ 
+            }
         }
 
         private void UpdateTile(Label l, int i)
@@ -91,13 +97,41 @@ namespace twozerofoureight
 
         private void btnUp_Click(object sender, EventArgs e)
         {
-            controller.ActionPerformed(TwoZeroFourEightController.UP);
+           controller.ActionPerformed(TwoZeroFourEightController.UP);
         }
 
         private void btnDown_Click(object sender, EventArgs e)
         {
             controller.ActionPerformed(TwoZeroFourEightController.DOWN);
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {   
+            if(keyData == Keys.Up)
+            {
+                controller.ActionPerformed(TwoZeroFourEightController.UP);
+                return true;
+                
 
+            }else if (keyData == Keys.Down)
+            {
+                controller.ActionPerformed(TwoZeroFourEightController.DOWN);
+                return true;
+
+            }else if (keyData == Keys.Left)
+
+            {
+                controller.ActionPerformed(TwoZeroFourEightController.LEFT);
+                return true;
+
+            }else if (keyData ==  Keys.Right)
+            {
+                controller.ActionPerformed(TwoZeroFourEightController.RIGHT);
+                return true;
+            }
+            else
+            {
+                return false;
+            }   
+        }
     }
 }
